@@ -4,6 +4,8 @@ import tkinter as tk
 from pynput.mouse import Controller, Button
 from pynput.keyboard import Listener, KeyCode
 
+# Define variables, Define Functions, Start backgroud tasks (threading), GUI Setup
+
 mouse = Controller()
 clicking = False
 cps = 10
@@ -45,20 +47,29 @@ listener.start()
 # GUI Setup
 root = tk.Tk()
 root.title("AutoClicker")
-root.geometry("400x300")
+root.geometry("450x400")
+root.configure(padx=10, pady=10)
 
+# Box (parent)
+interval_frame = tk.LabelFrame(root, text="Click interval", padx=10, pady=10)
+interval_frame.pack(fill="x", pady=5)
 
-tk.Label(root, text="Toggle CPS").pack()
-cps_entry = tk.Entry(root)
-cps_entry.insert(0, cps,)
-cps_entry.pack()
+# Changed time_container from .pack to .grid
+time_container = tk.Frame(interval_frame)
+time_container.grid()
 
-tk.Label(root, text="Toggle Start/End Key").pack()
-key_entry = tk.Entry(root)
+# Toggle CPS
+tk.Label(interval_frame, text="Toggle CPS:").grid(row=0, column=0, sticky="w", pady=2)
+cps_entry = tk.Entry(interval_frame)
+cps_entry.insert(0, cps)
+cps_entry.grid(row=0, column=1, padx=10, pady=2)
+
+# Toggle Start/End Key
+tk.Label(interval_frame, text="Toggle Start/End Key:").grid(row=1, column=0, sticky="w", pady=2)
+key_entry = tk.Entry(interval_frame)
 key_entry.insert(0, toggle_key)
-key_entry.pack()
-
+key_entry.grid(row=1, column=1, padx=10, pady=2)
+# Update Settings button
 tk.Button(root, text="Update Settings", command=update_settings).pack()
-
 
 root.mainloop()
