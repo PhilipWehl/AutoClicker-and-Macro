@@ -5,7 +5,6 @@ from pynput.mouse import Controller, Button
 from pynput.keyboard import Listener, KeyCode
 
 mouse = Controller()
-
 clicking = False
 cps = 10
 toggle_key = "F6"
@@ -31,8 +30,10 @@ def update_settings():
     global cps, toggle_key
     try:
         cps = int(cps_entry.get())
+        if cps <= 0:
+            cps = 1
         toggle_key = key_entry.get()
-    except:
+    except ValueError:
         pass
 
 
@@ -58,5 +59,6 @@ key_entry.insert(0, toggle_key)
 key_entry.pack()
 
 tk.Button(root, text="Update Settings", command=update_settings).pack()
+
 
 root.mainloop()
